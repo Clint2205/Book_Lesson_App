@@ -1,37 +1,73 @@
-/* styles.css */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #0b0b0b;
+
+}
+
+#app {
+  text-align: center;
+  margin: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+}
+
+.lesson-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.lesson {
+  border: 2px solid #ccc;
+  width: 250px;
+  font-size: 14px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #ec28b1;
+
+  border-radius: px;
+  /* Round the corners of the lesson */
+  text-align: center;
+}
+
+button {
+  background-color: #fff;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
   #app {
-    text-align: center;
-    margin: 20px;
+    margin: 10px;
+    padding: 10px;
   }
-  
+
   .lesson {
-    border: 10px solid #ccc;
-    width: 400px;
-    padding: 10px 0;
-    margin: 20px;
-    display: inline-block;
+    width: calc(50% - 10px);
   }
-  
-  button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+}
+
+/* Media query for even smaller screens */
+@media (max-width: 480px) {
+  .lesson {
+    width: 100%;
   }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    margin: 5px 0;
-  }
-  
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 5px 0;
+}

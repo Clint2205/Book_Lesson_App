@@ -16,22 +16,26 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
 
     <div id="app">
         <h1>After-School Lesson Booking App</h1>
-        <!-- Looping through the lessons class whilst displaying each lesson -->
-        <div v-for="lesson in lessons" class="lesson">
-            <!-- binding the lesson.icon value as a class to the i element. -->
-            <i class="fas" :class="lesson.icon"></i>
-            <p>Subject:{{ lesson.subject }}</p>
-            <p>Location: {{ lesson.location }}</p>
-            <p>Price: {{ lesson.price }}</p>
-            <p>Spaces: {{lesson.spaces}}</p>
-            <!-- Button to add the lesson to the cart -->
-            <button @click="bookActivity(lesson)">Add to cart</button>
-
-
+        <!-- dropdown menu to select the options list from -->
+        <label for="sort">Sort By:</label>
+        <select id="sort" v-model="selectedSort">
+            <option value="">-- Select Option --</option>
+            <option value="subject">Subject</option>
+            <option value="location">Location</option>
+            <option value="price">Price</option>
+            <option value="spaces">Availability</option>
+        </select>
+        <div class="lesson-container">
+            <!-- Loop through the lessons and display them in rows of three -->
+            <div v-for="(lesson, index) in lessons" :key="index" class="lesson" @mouseover="handleEvent">
+                <i :class="['fas', lesson.icon, 'fa-3x']"></i>
+                <p>Subject: {{ lesson.subject }}</p>
+                <p>Location: {{ lesson.location }}</p>
+                <p>Price: {{ lesson.price }}</p>
+                <p>Spaces: {{ lesson.spaces }}</p>
+                <button @click="bookLesson(lesson)">Add to cart</button>
+            </div>
         </div>
-
-
-
     </div>
     <script src="book-lesson.js"></script>
 
