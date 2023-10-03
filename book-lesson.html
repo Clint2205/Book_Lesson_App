@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After-School Booking App</title>
+    <script src="
+https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
+"></script>
+    <link rel="stylesheet" href="booklesson.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <h1>After-School Lesson Booking App</h1>
+        <!-- Looping through the lessons class whilst displaying each lesson -->
+        <div v-for="lesson in lessons" class="lesson">
+            <!-- binding the lesson.icon value as a class to the i element. -->
+            <i class="fas" :class="lesson.icon"></i>
+            <p>Subject:{{ lesson.subject }}</p>
+            <p>Location: {{ lesson.location }}</p>
+            <p>Price: {{ lesson.price }}</p>
+            <p>Spaces: {{lesson.spaces}}</p>
+            <!-- Button to add the lesson to the cart -->
+            <button @click="bookActivity(lesson)">Add to cart</button>
+
+
+        </div>
+
+
+
+    </div>
+    <script src="book-lesson.js"></script>
+
+</body>
+
+</html>
