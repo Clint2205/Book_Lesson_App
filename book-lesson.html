@@ -25,6 +25,13 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
             <option value="price">Price</option>
             <option value="spaces">Availability</option>
         </select>
+        <!-- Dropdown menu to select sorting order -->
+        <label for="order">Order:</label>
+        <select id="order" v-model="selectedSortOrder">
+            <option value="">-- Select Order --</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
         <div class="lesson-container">
             <!-- Loop through the lessons and display them in rows of three -->
             <div v-for="(lesson, index) in lessons" :key="index" class="lesson" @mouseover="handleEvent">
