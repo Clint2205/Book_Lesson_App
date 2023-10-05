@@ -30,7 +30,8 @@ const app = Vue.createApp({
     bookLesson(lesson) {
       if (lesson.spaces > 0) {
         // Decrease the spaces count by 1 and  Update the shopping cart or perform other actions as needed
-       this.cart.push(lesson);   
+       this.cart.push(lesson); 
+  
         lesson.spaces--; 
         this.cartEmpty = false;
        
