@@ -30,16 +30,17 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
         <label for="order">Order:</label>
         <select id="order" v-model="selectedSortOrder">
             <option value="">-- Select Order --</option>
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
+            <option value="Ascending">Ascending</option>
+            <option value="Descending">Descending</option>
         </select>
+        <p>Sorting order is ({{(selectedSortOrder)}}):</p>
         </div>
          <!-- Shopping Cart Button -->
          <!-- if you are on the lesson page and the cart is empty the button will be disabled-->
          <button class="cart-button" @click="toggleCart" :disabled="lessonView && cartEmpty">
-            {{ toggleButtonText }}
+          <i class="fas fa-shopping-cart"></i>  {{ toggleButtonText }} ({{ cartCount }})
           </button>
-          <p>order:{{selectedSortOrder}}</p>
+         
         <div class="lesson-container" v-if="lessonView">
             <!-- Loop through the lessons and display them in rows of three -->
             <div v-for="(lesson, index) in lessons" :key="index" class="lesson">
@@ -48,7 +49,7 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
                 <p>Location: {{ lesson.location }}</p>
                 <p>Price: {{ lesson.price }}</p>
                 <p>Spaces: {{ lesson.spaces }}</p>
-                <button @click="bookLesson(lesson)" v-bind:class="{ 'hoverable-button': lesson.spaces > 0 }">Add to cart</button>
+                <button @click="bookLesson(lesson)" :class="{ 'hoverable-button': lesson.spaces > 0 }">  <i class="fas fa-shopping-cart"></i> Add to cart</button>
             </div>
         </div>
          
@@ -61,14 +62,16 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
           <!-- "Checkout" button -->
           <button @click="checkout" :disabled="cart.length === 0 || !phoneNumberIsValid">Checkout</button>
 
-      
+      <!-- Display the checkout completion message -->
+<div v-if="checkoutMessage" class="checkout-message">{{ checkoutMessage }}</div>
+
         <!-- User information input fields -->
         <div>
           <label for="userName">Name:</label>
           <input type="text" id="userName" v-model="userName" @input="checkUserInfo" placeholder="User-name"/>
         </div>
         <div>
-          <label for="userNumber">Phone Number:</label>
+          <label for="userNumber">Phone :</label>
           <input type="tel" id="userNumber" v-model="userNumber" @input="checkUserInfo"pattern="[0-9]*" placeholder="Phone-Number">
 
         </div>

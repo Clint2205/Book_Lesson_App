@@ -28,6 +28,9 @@ const app = Vue.createApp({
       userName: "",
       userNumber: "",
       isUserInfo: false,
+      sortingOrderMessage: '',
+      cartCount: 0,
+      checkoutMessage: "",
     };
   },
   methods: {
@@ -38,6 +41,9 @@ const app = Vue.createApp({
 
         lesson.spaces--;
         this.cartEmpty = false;
+
+        this.cartCount++;
+     
 
 
       }
@@ -60,7 +66,7 @@ const app = Vue.createApp({
       }
 
       // Check the selected sorting order (asc or desc) and reverse the array if needed
-      if (this.selectedSortOrder === 'desc') {
+      if (this.selectedSortOrder === 'Descending') {
         sorted.reverse();
       }
 
@@ -82,6 +88,7 @@ const app = Vue.createApp({
       if (this.cart.length === 0) {
         this.cartEmpty = true;
       }
+      this.cartCount--;
 
     },
     //a check to see if the user info is provided
@@ -100,15 +107,26 @@ const app = Vue.createApp({
       }
       if (this.isUserInfo) {
 
-
+        this.cart = "";
         this.cart = [];
         this.userName = "";
         this.userNumber = "";
         this.isUserInfo = false;
+        this.cartCount--;
 
         // display a confirmation message as needed
-        alert("Checkout successful!");
+        this.checkoutMessage = "Checkout successful! Your items have been booked.";
+        setTimeout(() => {
+          this.checkoutMessage = "";
+        }, 3000);
       }
+    },
+    sortingOrderMessage() {
+      if (this.selectedSortOrder === 'Ascending') {
+        return ;
+      } else if (this.selectedSortOrder === 'Descending') {
+        return ;
+      } 
     },
 
 
@@ -123,12 +141,13 @@ const app = Vue.createApp({
     phoneNumberIsValid() {
       return /^[0-9]*$/.test(this.userNumber);
     },
+    
   },
   watch: {
     selectedSortOrder() {
       // track changes in selectedSortOrder
       // If a valid sorting order asc or desc is selected, the sortLessons method is called
-      if (["asc", "desc"].includes(this.selectedSortOrder)) {
+      if (["Ascending", "Descending"].includes(this.selectedSortOrder)) {
         this.sortLessons();
       }
     },
