@@ -2,6 +2,7 @@ const app = Vue.createApp({
   data() {
     return {
       //array of lesson objects
+      //data properties
       lessons: [
         { subject: "Mathematics", location: "Manchester", price: 80, spaces: 5, cart: 0, icon: "fa-calculator" },
         { subject: "English", location: "London", price: 100, spaces: 5, cart: 0, icon: "fa-book" },
@@ -23,19 +24,22 @@ const app = Vue.createApp({
       // Track the current view cart or lesson
       lessonView: true,
       cart: [],
-      toggleButtonText: "View Cart", 
+      toggleButtonText: "View Cart",
+      userName: "",
+      userNumber: "",
+      isUserInfo: false,
     };
   },
   methods: {
     bookLesson(lesson) {
       if (lesson.spaces > 0) {
         // Decrease the spaces count by 1 and  Update the shopping cart or perform other actions as needed
-       this.cart.push(lesson); 
-  
-        lesson.spaces--; 
+        this.cart.push(lesson);
+
+        lesson.spaces--;
         this.cartEmpty = false;
-       
-        
+
+
       }
     },
     sortLessons() {
@@ -65,27 +69,59 @@ const app = Vue.createApp({
     },
     toggleCart() {
       // Toggle between the lesson view andshopping cart
-     this.lessonView = !this.lessonView;
-     this.toggleButtonText = this.lessonView ? "View Cart" : "Back to Lessons";
+      this.lessonView = !this.lessonView;
+      this.toggleButtonText = this.lessonView ? "View Cart" : "Back to Lessons";
       console.log("eeeee")
-  },
-  // Increase the available space when cart item is removed from the cart
-  removeFromCart(index) {
-    const removedLesson = this.cart[index];
-    this.cart.splice(index, 1); 
-    removedLesson.spaces += 1; 
-    // Check if the cart is empty after removing an item
-  if (this.cart.length === 0) {
-    this.cartEmpty = true;
-  }
-    
-  },
-    
+    },
+    // Increase the available space when cart item is removed from the cart
+    removeFromCart(index) {
+      const removedLesson = this.cart[index];
+      this.cart.splice(index, 1);
+      removedLesson.spaces += 1;
+      // Check if the cart is empty after removing an item
+      if (this.cart.length === 0) {
+        this.cartEmpty = true;
+      }
+
+    },
+    //a check to see if the user info is provided
+    checkUserInfo() {
+      if (this.userName.trim() !== "" && this.userNumber.trim() !== "") {
+        this.isUserInfo = true;
+      } else {
+        this.isUserInfo = false;
+      }
+    },
+    // reseting user info fields if needed and clearing input fields and cart
+    checkout() {
+      if (this.cart.length === 0 || !this.phoneNumberIsValid) {
+
+        return;
+      }
+      if (this.isUserInfo) {
+
+
+        this.cart = [];
+        this.userName = "";
+        this.userNumber = "";
+        this.isUserInfo = false;
+
+        // display a confirmation message as needed
+        alert("Checkout successful!");
+      }
+    },
+
+
+
+
   },
   computed: {
-    // Computed property to return the sorted lessons
+    //  property that  returns the sorted lessons
     sortedLessons() {
       return this.lessons;
+    },
+    phoneNumberIsValid() {
+      return /^[0-9]*$/.test(this.userNumber);
     },
   },
   watch: {
