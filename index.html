@@ -56,8 +56,11 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
         <p>Location: {{ lesson.location }}</p>
         <p>Price: {{ lesson.price }}</p>
         <p>Spaces: {{ lesson.spaces }}</p>
-        <button @click="bookLesson(lesson)" :class="{ 'hoverable-button': lesson.spaces > 0 }"> <i
-            class="fas fa-shopping-cart"></i> Add to cart</button>
+        <button @click="bookLesson(lesson)" :class="{ 'hoverable-button': lesson.spaces > 0 }" :disabled="lesson.spaces === 0">
+          <i class="fas fa-shopping-cart"></i> Add to cart
+        </button>
+        
+        
       </div>
     </div>
 
