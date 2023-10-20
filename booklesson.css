@@ -154,23 +154,62 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Adjust spacing for cart items */
-#cart-page .lesson {
-  margin: 10px;
-  padding: 10px;
-  text-align: center;
-}
-
-/* Adjust spacing for cart item buttons */
-#cart-page .lesson button {
-  margin-top: 10px;
-}
-
+make this responsive to smaller screens
 /* Style for the message about sorting order */
 #sorting-message {
   margin-top: 10px;
   font-weight: bold;
 }
+.input-group {
+  margin: 20px; 
+}
+.sorting-container {
+
+ 
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  flex-wrap: wrap; 
+}
+
+.sorting-group {
+  margin: 10px; 
+  flex: 1;
+}
+
+/* Style for labels */
+label {
+  font-weight: bold;
+}
+
+/* Style for select elements */
+select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 150px;
+  box-sizing: border-box; 
+}
+
+/* Style for the main heading */
+.sorting-container > p {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+  .sorting-group {
+    margin: 5px; 
+  }
+
+  select {
+    width: 100%;
+  }
+}
+
+
 
 /* Style for the checkout completion message */
 .checkout-message {

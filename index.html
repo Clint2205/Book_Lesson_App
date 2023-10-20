@@ -17,7 +17,9 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
   <div id="app">
     <h1 v-text="sitename"></h1>
     <!-- dropdown menu to select the options list from -->
-    <div v-if="lessonView">
+    <div v-if="lessonView"  class="sorting-container">
+      <p>Select Sorting order ({{(selectedSortOrder)}}):</p>
+      <div class="input-group">
       <label for="sort">Sort By:</label>
       <select id="sort" v-model="selectedSort">
         <option value="">-- Select Option --</option>
@@ -26,14 +28,17 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
         <option value="price">Price</option>
         <option value="spaces">Availability</option>
       </select>
+      </div>
       <!-- Dropdown menu to select sorting order -->
+      <div class="input-group">
       <label for="order">Order:</label>
       <select id="order" v-model="selectedSortOrder">
         <option value="">-- Select Order --</option>
         <option value="Ascending">Ascending</option>
         <option value="Descending">Descending</option>
       </select>
-      <p>Select Sorting order ({{(selectedSortOrder)}}):</p>
+      </div>
+      
     </div>
     <!-- Shopping Cart Button -->
     <!-- if you are on the lesson page and the cart is empty the button will be disabled-->
