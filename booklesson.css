@@ -59,12 +59,13 @@ button {
  
 }
 
-.cart-button:hover{
+.cart-button:disabled:hover{
   border: 2px solid #2a2828;
   background-color: hsl(0, 100%, 50%);
   color: white;
   cursor: pointer;
   margin: 5px;
+  cursor: not-allowed;
 }
 
 
@@ -79,6 +80,7 @@ button {
   color: #333;
   cursor: not-allowed;
 }
+
 
 
 /* Media query for smaller screens */

@@ -1,6 +1,7 @@
 const app = Vue.createApp({
   data() {
     return {
+      sitename: "lesson Booking App",
       //array of lesson objects
       //data properties
       lessons: [

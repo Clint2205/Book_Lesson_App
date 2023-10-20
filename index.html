@@ -15,7 +15,7 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
 <body>
 
     <div id="app">
-        <h1>After-School Lesson Booking App</h1>
+        <h1 v-text="sitename"></h1>
         <!-- dropdown menu to select the options list from -->
         <div v-if="lessonView">
         <label for="sort">Sort By:</label>
@@ -33,12 +33,12 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
             <option value="Ascending">Ascending</option>
             <option value="Descending">Descending</option>
         </select>
-        <p>Sorting order is ({{(selectedSortOrder)}}):</p>
+        <p>Select Sorting order  ({{(selectedSortOrder)}}):</p>
         </div>
          <!-- Shopping Cart Button -->
          <!-- if you are on the lesson page and the cart is empty the button will be disabled-->
          <button class="cart-button" @click="toggleCart" :disabled="lessonView && cartEmpty">
-          <i class="fas fa-shopping-cart"></i>  {{ toggleButtonText }} ({{ cartCount }})
+            {{ toggleButtonText }} 
           </button>
          
         <div class="lesson-container" v-if="lessonView">
@@ -60,7 +60,7 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
           <p>Your cart is empty.</p>
         </div>
           <!-- "Checkout" button -->
-          <button @click="checkout" :disabled="cart.length === 0 || !phoneNumberIsValid">Checkout</button>
+          <button @click="checkout" :disabled="cart.length === 0 || !phoneNumberIsValid" ><i class="fas fa-shopping-cart"></i> Checkout({{ cartCount }})</button>
 
       <!-- Display the checkout completion message -->
 <div v-if="checkoutMessage" class="checkout-message">{{ checkoutMessage }}</div>
