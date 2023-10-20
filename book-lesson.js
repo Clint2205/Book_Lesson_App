@@ -25,13 +25,14 @@ const app = Vue.createApp({
       // Track the current view cart or lesson
       lessonView: true,
       cart: [],
-      toggleButtonText: "View Cart",
+      toggleButtonText: "Checkout",
       userName: "",
       userNumber: "",
       isUserInfo: false,
       sortingOrderMessage: '',
       cartCount: 0,
       checkoutMessage: "",
+      usersCheckedOutMessage: "",
     };
   },
   methods: {
@@ -44,7 +45,7 @@ const app = Vue.createApp({
         this.cartEmpty = false;
 
         this.cartCount++;
-     
+
 
 
       }
@@ -77,8 +78,8 @@ const app = Vue.createApp({
     toggleCart() {
       // Toggle between the lesson view andshopping cart
       this.lessonView = !this.lessonView;
-      this.toggleButtonText = this.lessonView ? "View Cart" : "Back to Lessons";
-      console.log("eeeee")
+      this.toggleButtonText = this.lessonView ? "Checkout" : "Back to Lessons";
+      console.log("e")
     },
     // Increase the available space when cart item is removed from the cart
     removeFromCart(index) {
@@ -100,8 +101,14 @@ const app = Vue.createApp({
         this.isUserInfo = false;
       }
     },
-    // reseting user info fields if needed and clearing input fields and cart
+    // reseting user info fields after checout
+    // clearing input fields and cart 
+    // displaying a confirmation message 
     checkout() {
+      if (this.cart.length === 0) {
+        alert("Your cart is empty. Add items to your cart before checking out.");
+        return;
+      }
       if (this.cart.length === 0 || !this.phoneNumberIsValid) {
 
         return;
@@ -110,24 +117,27 @@ const app = Vue.createApp({
 
         this.cart = "";
         this.cart = [];
+        this.checkoutMessage = `Checkout successful! User: ${this.userName}, Phone: ${this.userNumber}`;
+        setTimeout(() => {
+          this.checkoutMessage = "";
+        }, 5000);
+
+
         this.userName = "";
         this.userNumber = "";
         this.isUserInfo = false;
         this.cartCount--;
 
-        // display a confirmation message as needed
-        this.checkoutMessage = "Checkout successful! Your items have been booked.";
-        setTimeout(() => {
-          this.checkoutMessage = "";
-        }, 3000);
       }
+
+
     },
     sortingOrderMessage() {
       if (this.selectedSortOrder === 'Ascending') {
-        return ;
+        return;
       } else if (this.selectedSortOrder === 'Descending') {
-        return ;
-      } 
+        return;
+      }
     },
 
 
@@ -142,7 +152,17 @@ const app = Vue.createApp({
     phoneNumberIsValid() {
       return /^[0-9]*$/.test(this.userNumber);
     },
-    
+//determine current view state
+    isCheckoutView() {
+      return this.lessonView && this.toggleButtonText === 'Checkout';
+    },
+    isBackToLessonsView() {
+      return this.lessonView && this.toggleButtonText === 'Back to Lessons';
+    },
+
+
+
+
   },
   watch: {
     selectedSortOrder() {

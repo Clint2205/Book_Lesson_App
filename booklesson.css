@@ -22,14 +22,16 @@ body {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
-#cart-page{
+
+#cart-page {
 
   display: inline-block;
   flex-wrap: wrap;
   justify-content: space-evenly;
 
 }
-#toggle-cart{
+
+#toggle-cart {
   border: #0b0b0b;
 }
 
@@ -41,7 +43,7 @@ body {
   margin: 10px;
   background-color: #ec28b1;
 
-  border-radius:15px;
+  border-radius: 15px;
   /* Round the corners of the lesson */
   text-align: center;
 }
@@ -53,13 +55,14 @@ button {
   padding: 5px 10px;
   cursor: pointer;
 }
-.cart-button{
+
+.cart-button {
   border: 2px solid #2a2828;
   margin: 5px;
- 
+
 }
 
-.cart-button:disabled:hover{
+.cart-button:disabled:hover {
   border: 2px solid #2a2828;
   background-color: hsl(0, 100%, 50%);
   color: white;
@@ -110,8 +113,10 @@ ul {
 li {
   margin: 5px 0;
 }
+
 /* Style for input fields */
-input[type="text"], input[type="tel"] {
+input[type="text"],
+input[type="tel"] {
   width: 50%;
   padding: 10px;
   margin-bottom: 10px;
@@ -130,7 +135,8 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 10px; /* Add some spacing between input and button */
+  margin-top: 10px;
+  /* Add some spacing between input and button */
 }
 
 button:disabled {
@@ -155,6 +161,7 @@ button:disabled {
   margin-top: 10px;
   font-weight: bold;
 }
+
 /* Style for the checkout completion message */
 .checkout-message {
   background-color: #4CAF50;
@@ -165,4 +172,3 @@ button:disabled {
   border-radius: 4px;
   font-weight: bold;
 }
-
