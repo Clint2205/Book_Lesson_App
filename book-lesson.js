@@ -32,7 +32,7 @@ const app = Vue.createApp({
       sortingOrderMessage: '',
       cartCount: 0,
       checkoutMessage: "",
-      usersCheckedOutMessage: "",
+     // usersCheckedOutMessage: "",
     };
   },
   methods: {
@@ -97,7 +97,8 @@ const app = Vue.createApp({
     checkUserInfo() {
       if (this.userName.trim() !== "" && this.userNumber.trim() !== "") {
         this.isUserInfo = true;
-      } else {
+      } else  {
+
         this.isUserInfo = false;
       }
     },
@@ -105,11 +106,8 @@ const app = Vue.createApp({
     // clearing input fields and cart 
     // displaying a confirmation message 
     checkout() {
-      if (this.cart.length === 0) {
-        alert("Your cart is empty. Add items to your cart before checking out.");
-        return;
-      }
-      if (this.cart.length === 0 || !this.phoneNumberIsValid) {
+      
+      if (this.cart.length === 0 || !this.phoneNumberIsValid || !this.userNameIsValid) {
 
         return;
       }
@@ -117,31 +115,24 @@ const app = Vue.createApp({
 
         this.cart = "";
         this.cart = [];
+        this.lessons.spaces;
+       
         this.checkoutMessage = `Checkout successful! User: ${this.userName}, Phone: ${this.userNumber}`;
         setTimeout(() => {
           this.checkoutMessage = "";
         }, 5000);
 
-
+        this.cartCount = 0;
         this.userName = "";
         this.userNumber = "";
         this.isUserInfo = false;
-        this.cartCount--;
+      
 
       }
 
 
     },
-    sortingOrderMessage() {
-      if (this.selectedSortOrder === 'Ascending') {
-        return;
-      } else if (this.selectedSortOrder === 'Descending') {
-        return;
-      }
-    },
-
-
-
+  
 
   },
   computed: {
@@ -152,6 +143,11 @@ const app = Vue.createApp({
     phoneNumberIsValid() {
       return /^[0-9]*$/.test(this.userNumber);
     },
+    userNameIsValid(){
+     return /^[A-Za-z]+$/.test(this.userName);
+
+    },
+
 //determine current view state
     isCheckoutView() {
       return this.lessonView && this.toggleButtonText === 'Checkout';

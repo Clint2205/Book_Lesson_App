@@ -8,12 +8,13 @@ body {
 
 #app {
   text-align: center;
-  margin: 20px;
+  margin: 50px;
   background-color: #fff;
   padding: 20px;
   border: 2px solid #ccc;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 
 }
 
@@ -22,13 +23,18 @@ body {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
-
 #cart-page {
-
   display: inline-block;
   flex-wrap: wrap;
   justify-content: space-evenly;
-
+  width:50%;
+}
+@media (max-width: 768px) {
+  .lesson, #cart-page {
+    display: inline-block;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
 }
 
 #toggle-cart {
@@ -44,7 +50,6 @@ body {
   background-color: #ec28b1;
 
   border-radius: 15px;
-  /* Round the corners of the lesson */
   text-align: center;
 }
 
@@ -71,7 +76,7 @@ button {
   cursor: not-allowed;
 }
 
-/* Add styles for disabled buttons (lessons with no available spaces) */
+/* Adding styles for disabled buttons (lessons with no available spaces) */
 .disabled-button {
    border: 2px solid #2a2828;
   background-color: hsl(0, 100%, 50%);
@@ -84,12 +89,12 @@ button {
 
 .hoverable-button:hover {
   background-color: hsl(0, 100%, 50%);
-  color: white;
+  color: rgb(21, 19, 19);
   cursor: pointer;
 }
 
 .hoverable-button:disabled:hover {
-  background-color: #ccc;
+  background-color: #ef0b0b;
   color: #333;
   cursor: not-allowed;
 }
@@ -138,7 +143,7 @@ input[type="tel"] {
 
 /* Style for the checkout button */
 button {
-  background-color: #DDA0DD;
+  background-color: #420b42;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -154,7 +159,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-make this responsive to smaller screens
+
 /* Style for the message about sorting order */
 #sorting-message {
   margin-top: 10px;

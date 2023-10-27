@@ -17,28 +17,32 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
   <div id="app">
     <h1 v-text="sitename"></h1>
     <!-- dropdown menu to select the options list from -->
-    <div v-if="lessonView"  class="sorting-container">
+    <div v-if="lessonView" class="sorting-container">
       <p>Select Sorting order ({{(selectedSortOrder)}}):</p>
       <div class="input-group">
-      <label for="sort">Sort By:</label>
-      <select id="sort" v-model="selectedSort">
-        <option value="">-- Select Option --</option>
-        <option value="subject">Subject</option>
-        <option value="location">Location</option>
-        <option value="price">Price</option>
-        <option value="spaces">Availability</option>
-      </select>
+        <label for="sort">Sort By:</label>
+        <select id="sort" v-model="selectedSort">
+          <option value="">-- Select Option --</option>
+          <option value="subject">Subject</option>
+          <option value="location">Location</option>
+          <option value="price">Price</option>
+          <option value="spaces">Availability</option>
+        </select>
       </div>
       <!-- Dropdown menu to select sorting order -->
       <div class="input-group">
-      <label for="order">Order:</label>
-      <select id="order" v-model="selectedSortOrder">
-        <option value="">-- Select Order --</option>
-        <option value="Ascending">Ascending</option>
-        <option value="Descending">Descending</option>
-      </select>
+        <label for="order">Order:</label>
+        <select id="order" v-model="selectedSortOrder">
+          <option value="">-- Select Order --</option>
+          <option value="Ascending">Ascending</option>
+          <option value="Descending">Descending</option>
+        </select>
       </div>
-      
+      <div id="search">
+        <label for="search">Search:</label>
+        <!-- <input type="text" id="search" v-model="" @input="" placeholder="search" pattern="/^[A-Za-z]+$/" /> -->
+      </div>
+     
     </div>
     <!-- Shopping Cart Button -->
     <!-- if you are on the lesson page and the cart is empty the button will be disabled-->
@@ -61,13 +65,15 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
         <p>Location: {{ lesson.location }}</p>
         <p>Price: {{ lesson.price }}</p>
         <p>Spaces: {{ lesson.spaces }}</p>
-        <button @click="bookLesson(lesson)" :class="{ 'hoverable-button': lesson.spaces > 0 }" :disabled="lesson.spaces === 0">
+        <button @click="bookLesson(lesson)" :class="{ 'hoverable-button': lesson.spaces > 0 }"
+          :disabled="lesson.spaces === 0">
           <i class="fas fa-shopping-cart"></i> Add to cart
         </button>
-        
-        
+
+
       </div>
     </div>
+
 
     <!-- Cart Page -->
     <div v-else id="cart-checkout-button">
@@ -76,23 +82,21 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
         <p>Your cart is empty.</p>
       </div>
       <!-- "Checkout" button -->
-      <button class="cart-checkout-button" @click="checkout" :disabled="cart.length === 0 || !phoneNumberIsValid"><i
+      <button class="cart-checkout-button" @click="checkout" :disabled="cart.length === 0 || !phoneNumberIsValid ||!userNameIsValid"><i
           class="fas fa-shopping-cart"></i> Checkout({{ cartCount }})</button>
 
-
-      <div v-if="checkout" class="userInfo">{{ usersCheckedOutMessage }}</div>
       <!-- Display the checkout completion message -->
       <div v-if="checkoutMessage" class="checkout-message">{{ checkoutMessage }}</div>
 
       <!-- User information input fields -->
       <div>
         <label for="userName">Name:</label>
-        <input type="text" id="userName" v-model="userName" @input="checkUserInfo" placeholder="User-name" />
+        <input type="text" id="userName" v-model="userName" @input="checkUserInfo" placeholder="Letters-only" pattern="/^[A-Za-z]+$/" />
       </div>
       <div>
         <label for="userNumber">Phone :</label>
         <input type="tel" id="userNumber" v-model="userNumber" @input="checkUserInfo" pattern="[0-9]*"
-          placeholder="Phone-Number">
+          placeholder="Numbers-only">
 
       </div>
 
