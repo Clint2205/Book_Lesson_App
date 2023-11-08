@@ -38,16 +38,41 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
           <option value="Descending">Descending</option>
         </select>
       </div>
-      <div id="search">
-        <label for="search">Search:</label>
-        <!-- <input type="text" id="search" v-model="" @input="" placeholder="search" pattern="/^[A-Za-z]+$/" /> -->
-      </div>
-     
     </div>
+
+    <!-- search funcionality -->
+   
+      <div id="search" v-show="lessonView">
+        <label for="search">Search:</label>
+        <input type="text" v-model="searchText" @input="searchFunction" placeholder="search" />
+      </div>
+   
+
+    <div id="search-results" v-if="searchActive">
+      <h2>Search Results:</h2>
+      <ul>
+
+        <li v-for="(lesson, index) in searchedItems" :key="index" class="lesson">
+          <i :class="['fas', lesson.icon, 'fa-3x']"></i>
+          <p>Subject: {{ lesson.subject }}</p>
+          <p>Location: {{ lesson.location }}</p>
+          <p>Price: {{ lesson.price }}</p>
+          <p>Spaces: {{ lesson.spaces }}</p>
+          <button @click="bookLesson(lesson)" :class="{ 'hoverable-button': lesson.spaces > 0 }"
+            :disabled="lesson.spaces === 0 ">
+            <i class="fas fa-shopping-cart"></i> Add to cart
+          </button>
+        </li>
+
+      </ul>
+    </div>
+
+
+
     <!-- Shopping Cart Button -->
     <!-- if you are on the lesson page and the cart is empty the button will be disabled-->
     <!-- if  lesson veiw button true show count and icon else--  -->
-    <button class="cart-button" @click="toggleCart" :disabled="lessonView && cartEmpty">
+    <button class="cart-button" v-if="!searchActive" @click="toggleCart" :disabled="lessonView && cartEmpty">
       <i class="fas fa-shopping-cart" v-show="lessonView && toggleButtonText === 'Checkout'"></i>
       {{ toggleButtonText === 'Checkout' ? toggleButtonText + ' (' + cartCount + ')' : toggleButtonText }}
     </button>
@@ -57,7 +82,7 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
 
 
 
-    <div class="lesson-container" v-if="lessonView">
+    <div class="lesson-container" v-if="!searchActive&&lessonView&&toggleButtonText">
       <!-- Loop through the lessons and display them in rows of three -->
       <div v-for="(lesson, index) in lessons" :key="index" class="lesson">
         <i :class="['fas', lesson.icon, 'fa-3x']"></i>
@@ -76,14 +101,17 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
 
 
     <!-- Cart Page -->
-    <div v-else id="cart-checkout-button">
+    <div v-else id="cart-checkout-button" v-if="!searchActive">
       <h2>Shopping Cart</h2>
       <div v-if="cart.length === 0">
         <p>Your cart is empty.</p>
       </div>
       <!-- "Checkout" button -->
-      <button class="cart-checkout-button" @click="checkout" :disabled="cart.length === 0 || !phoneNumberIsValid ||!userNameIsValid"><i
-          class="fas fa-shopping-cart"></i> Checkout({{ cartCount }})</button>
+      <button class="cart-checkout-button" @click="checkout"
+      :disabled="cart.length === 0 || !phoneNumberIsValid || !userNameIsValid">
+      <i class="fas fa-shopping-cart"></i> Checkout({{ cartCount }})
+    </button>
+    
 
       <!-- Display the checkout completion message -->
       <div v-if="checkoutMessage" class="checkout-message">{{ checkoutMessage }}</div>
@@ -91,7 +119,8 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
       <!-- User information input fields -->
       <div>
         <label for="userName">Name:</label>
-        <input type="text" id="userName" v-model="userName" @input="checkUserInfo" placeholder="Letters-only" pattern="/^[A-Za-z]+$/" />
+        <input type="text" id="userName" v-model="userName" @input="checkUserInfo" placeholder="Letters-only"
+          pattern="/^[A-Za-z]+$/" />
       </div>
       <div>
         <label for="userNumber">Phone :</label>
@@ -115,7 +144,8 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
 
 
   </div>
-  </div>
+
+
   <script src="book-lesson.js"></script>
 
 </body>

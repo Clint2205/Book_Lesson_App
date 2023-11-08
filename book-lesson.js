@@ -32,19 +32,28 @@ const app = Vue.createApp({
       sortingOrderMessage: '',
       cartCount: 0,
       checkoutMessage: "",
-     // usersCheckedOutMessage: "",
+      searchText: "",
+      searchedItems: [],
+      searchActive: false,
     };
   },
   methods: {
+
+
     bookLesson(lesson) {
       if (lesson.spaces > 0) {
-        // Decrease the spaces count by 1 and  Update the shopping cart or perform other actions as needed
+        // Decrease the spaces count by 1 and  Updates the shopping cart
+        // clearing search box
         this.cart.push(lesson);
 
         lesson.spaces--;
         this.cartEmpty = false;
 
         this.cartCount++;
+        this.searchText = '';
+        this.searchedItems = [];
+        this.searchActive = false;
+  
 
 
 
@@ -97,7 +106,7 @@ const app = Vue.createApp({
     checkUserInfo() {
       if (this.userName.trim() !== "" && this.userNumber.trim() !== "") {
         this.isUserInfo = true;
-      } else  {
+      } else {
 
         this.isUserInfo = false;
       }
@@ -106,7 +115,7 @@ const app = Vue.createApp({
     // clearing input fields and cart 
     // displaying a confirmation message 
     checkout() {
-      
+
       if (this.cart.length === 0 || !this.phoneNumberIsValid || !this.userNameIsValid) {
 
         return;
@@ -116,7 +125,7 @@ const app = Vue.createApp({
         this.cart = "";
         this.cart = [];
         this.lessons.spaces;
-       
+
         this.checkoutMessage = `Checkout successful! User: ${this.userName}, Phone: ${this.userNumber}`;
         setTimeout(() => {
           this.checkoutMessage = "";
@@ -126,13 +135,16 @@ const app = Vue.createApp({
         this.userName = "";
         this.userNumber = "";
         this.isUserInfo = false;
-      
+
 
       }
 
 
     },
-  
+
+
+
+
 
   },
   computed: {
@@ -143,18 +155,38 @@ const app = Vue.createApp({
     phoneNumberIsValid() {
       return /^[0-9]*$/.test(this.userNumber);
     },
-    userNameIsValid(){
-     return /^[A-Za-z]+$/.test(this.userName);
+    userNameIsValid() {
+      return /^[A-Za-z]+$/.test(this.userName);
 
     },
 
-//determine current view state
+    //determine current view state
     isCheckoutView() {
       return this.lessonView && this.toggleButtonText === 'Checkout';
     },
     isBackToLessonsView() {
       return this.lessonView && this.toggleButtonText === 'Back to Lessons';
     },
+    searchFunction() {
+      const searchText = this.searchText.toLowerCase().trim();
+      if (searchText === '') {
+        this.searchedItems = [];
+        this.searchActive = false;
+      } else {
+        let searched = this.lessons.filter((item) => {
+          return (
+            item.subject.toLowerCase().includes(searchText) ||
+            item.location.toLowerCase().includes(searchText)
+          );
+        });
+
+        this.searchedItems = searched;
+        this.searchActive = true;
+      // this.lessonView = false;
+      }
+    },
+
+
 
 
 
