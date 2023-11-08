@@ -177,11 +177,14 @@ button:disabled {
 .input-group {
   margin: 20px; 
 }
+.input-group order {
+  margin: 20px; 
+}
 .sorting-container {
 
  
-  align-items: center;
-  text-align: center;
+  align-items: left;
+  text-align:center;
   padding: 10px;
   flex-wrap: wrap; 
 }
@@ -195,13 +198,18 @@ button:disabled {
 label {
   font-weight: bold;
 }
+#order{
+
+  margin-right: 6px;
+}
 
 /* Style for select elements */
 select {
+  margin-left: 10px;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 150px;
+  width: 30%;
   box-sizing: border-box; 
 }
 
