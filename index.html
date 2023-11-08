@@ -31,7 +31,7 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
       </div>
       <!-- Dropdown menu to select sorting order -->
       <div class="input-group">
-        <label for="order">Order:</label>
+        <label for="order">Order by:</label>
         <select id="order" v-model="selectedSortOrder">
           <option value="">-- Select Order --</option>
           <option value="Ascending">Ascending</option>
@@ -42,9 +42,9 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
 
     <!-- search funcionality -->
    
-      <div id="search" v-show="lessonView">
+      <div class="search" v-show="lessonView">
         <label for="search">Search:</label>
-        <input type="text" v-model="searchText" @input="searchFunction" placeholder="search" />
+        <input type="text" v-model="searchText" @input="searchFunction" placeholder="search" style="width: 40%;"/>
       </div>
    
 
