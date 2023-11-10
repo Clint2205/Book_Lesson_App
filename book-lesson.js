@@ -39,7 +39,7 @@ const app = Vue.createApp({
   },
   methods: {
 
-
+//method to insert lesson into cart
     bookLesson(lesson) {
       if (lesson.spaces > 0) {
         // Decrease the spaces count by 1 and  Updates the shopping cart
@@ -72,11 +72,11 @@ const app = Vue.createApp({
           return aValue.localeCompare(bValue);
         });
       } else if (this.selectedSort === 'price' || this.selectedSort === 'spaces') {
-        // Sort numerically by price or spaces
+        // Sorting numerically by price or spaces
         sorted.sort((a, b) => parseFloat(a[this.selectedSort]) - parseFloat(b[this.selectedSort]));
       }
 
-      // Check the selected sorting order (asc or desc) and reverse the array if needed
+      // Checking the selected sorting order (asc or desc) and reverse the array if needed
       if (this.selectedSortOrder === 'Descending') {
         sorted.reverse();
       }
@@ -90,12 +90,12 @@ const app = Vue.createApp({
       this.toggleButtonText = this.lessonView ? "Checkout" : "Back to Lessons";
       console.log("e")
     },
-    // Increase the available space when cart item is removed from the cart
+    // removing cart item and increasing the available space when cart item is removed from the cart
     removeFromCart(index) {
       const removedLesson = this.cart[index];
       this.cart.splice(index, 1);
       removedLesson.spaces += 1;
-      // Check if the cart is empty after removing an item
+      // Check to see if the cart is empty after removing an item
       if (this.cart.length === 0) {
         this.cartEmpty = true;
       }
@@ -144,11 +144,9 @@ const app = Vue.createApp({
 
 
 
-
-
   },
   computed: {
-    //  property that  returns the sorted lessons
+    //  property that returns the sorted lessons
     sortedLessons() {
       return this.lessons;
     },
@@ -185,10 +183,6 @@ const app = Vue.createApp({
       // this.lessonView = false;
       }
     },
-
-
-
-
 
 
   },

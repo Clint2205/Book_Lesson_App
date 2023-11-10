@@ -41,12 +41,12 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
     </div>
 
     <!-- search funcionality -->
-   
-      <div class="search" v-show="lessonView">
-        <label for="search">Search:</label>
-        <input type="text" v-model="searchText" @input="searchFunction" placeholder="search" style="width: 40%;"/>
-      </div>
-   
+
+    <div class="search" v-show="lessonView">
+      <label for="search">Search:</label>
+      <input type="text" v-model="searchText" @input="searchFunction" placeholder="search" style="width: 40%;" />
+    </div>
+
 
     <div id="search-results" v-if="searchActive">
       <h2>Search Results:</h2>
@@ -83,7 +83,7 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
 
 
     <div class="lesson-container" v-if="!searchActive&&lessonView&&toggleButtonText">
-      <!-- Loop through the lessons and display them in rows of three -->
+      <!-- Loop through the lessons and display them -->
       <div v-for="(lesson, index) in lessons" :key="index" class="lesson">
         <i :class="['fas', lesson.icon, 'fa-3x']"></i>
         <p>Subject: {{ lesson.subject }}</p>
@@ -108,10 +108,10 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
       </div>
       <!-- "Checkout" button -->
       <button class="cart-checkout-button" @click="checkout"
-      :disabled="cart.length === 0 || !phoneNumberIsValid || !userNameIsValid">
-      <i class="fas fa-shopping-cart"></i> Checkout({{ cartCount }})
-    </button>
-    
+        :disabled="cart.length === 0 || !phoneNumberIsValid || !userNameIsValid">
+        <i class="fas fa-shopping-cart"></i> Checkout({{ cartCount }})
+      </button>
+
 
       <!-- Display the checkout completion message -->
       <div v-if="checkoutMessage" class="checkout-message">{{ checkoutMessage }}</div>
