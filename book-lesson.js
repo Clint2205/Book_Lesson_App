@@ -4,20 +4,7 @@ const app = Vue.createApp({
       sitename: "lesson Booking App",
       //array of lesson objects
       //data properties
-      lessons: [
-        { subject: "Mathematics", location: "Manchester", price: 80, spaces: 5, cart: 0, icon: "fa-calculator" },
-        { subject: "English", location: "London", price: 100, spaces: 5, cart: 0, icon: "fa-book" },
-        { subject: "Drama", location: "London", price: 90, spaces: 5, cart: 0, icon: "fa-theater-masks" },
-        { subject: "Science", location: "Bristol", price: 70, spaces: 5, cart: 0, icon: "fa-flask" },
-        { subject: "English", location: "Birmingham", price: 120, spaces: 5, cart: 0, icon: "fa-book" },
-        { subject: "Music", location: "Nottingham", price: 110, spaces: 5, cart: 0, icon: "fa-music" },
-        { subject: "History", location: "Liverpool", price: 90, spaces: 5, cart: 0, icon: "fa-history" },
-        { subject: "Chess", location: "Leeds", price: 90, spaces: 5, cart: 0, icon: "fa-chess" },
-        { subject: "English", location: "Coventry", price: 100, spaces: 5, cart: 0, icon: "fa-book" },
-        { subject: "History", location: "Liverpool", price: 90, spaces: 5, cart: 0, icon: "fa-history" },
-        { subject: "Drama", location: "London", price: 90, spaces: 5, cart: 0, icon: "fa-theater-masks" },
-        { subject: "English", location: "London", price: 100, spaces: 5, cart: 0, icon: "fa-book" },
-      ],
+      lessons: [],
       //store slections temporarily
       selectedSort: "",
       selectedSortOrder: '',
@@ -37,9 +24,17 @@ const app = Vue.createApp({
       searchActive: false,
     };
   },
+  //fetch promise to call data from express middleware
+  created: function () {
+    fetch("http://localhost:3000/collections/products").then((res) => {
+      res.json().then((json) => {
+        this.lessons = json; 
+      });
+    });
+  },
   methods: {
 
-//method to insert lesson into cart
+    //method to insert lesson into cart
     bookLesson(lesson) {
       if (lesson.spaces > 0) {
         // Decrease the spaces count by 1 and  Updates the shopping cart
@@ -53,7 +48,7 @@ const app = Vue.createApp({
         this.searchText = '';
         this.searchedItems = [];
         this.searchActive = false;
-  
+
 
 
 
@@ -180,7 +175,7 @@ const app = Vue.createApp({
 
         this.searchedItems = searched;
         this.searchActive = true;
-      // this.lessonView = false;
+        // this.lessonView = false;
       }
     },
 
