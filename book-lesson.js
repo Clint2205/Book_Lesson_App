@@ -28,7 +28,7 @@ const app = Vue.createApp({
   created: function () {
     fetch("http://localhost:3000/collections/products").then((res) => {
       res.json().then((json) => {
-        this.lessons = json; 
+        this.lessons = json;
       });
     });
   },
@@ -110,32 +110,87 @@ const app = Vue.createApp({
     // clearing input fields and cart 
     // displaying a confirmation message 
     checkout() {
-
       if (this.cart.length === 0 || !this.phoneNumberIsValid || !this.userNameIsValid) {
-
         return;
       }
+
       if (this.isUserInfo) {
+        // Data to be sent to the server and database.
+        const lessonIDs = this.cart.map(lesson => lesson.lesson_id);
+        const spaces = this.cart.map(lesson => lesson.spaces);
 
-        this.cart = "";
-        this.cart = [];
-        this.lessons.spaces;
+        const orderData1 = {
+          userName: this.userName,
+          userNumber: this.userNumber,
+          cart: this.cart,
+          lessonIDs: lessonIDs,
+        };
+        const orderData2 ={
+          lessonIDs: lessonIDs,
+          spaces: spaces,
 
-        this.checkoutMessage = `Checkout successful! User: ${this.userName}, Phone: ${this.userNumber}`;
-        setTimeout(() => {
-          this.checkoutMessage = "";
-        }, 5000);
+        };
+               
 
-        this.cartCount = 0;
-        this.userName = "";
-        this.userNumber = "";
-        this.isUserInfo = false;
+        // POST request to save the new order
+        fetch('http://localhost:3000/collections/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderData1),
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to save the order');
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Handle the successful response from the server
+            console.log('Order saved successfully:', data);
 
+            // Clear the cart and reset other data
+            this.cart = [];
+            this.cartCount = 0;
+            this.userName = '';
+            this.userNumber = '';
+            this.isUserInfo = false;
+            this.checkoutMessage = "Congratulations Checkout Successfull";
 
+            setTimeout(() => {
+              this.checkoutMessage = '';
+            }, 5000);
+     // Fetch to Update lesson spaces after order is submitted
+            fetch('http://localhost:3000/collections/products', {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(orderData2),
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Failed to update lesson spaces');
+                }
+                return response.json();
+              })
+              .then(data => {
+                console.log('Lesson spaces updated successfully:', data);
+              })
+              .catch(error => {
+                console.error('Error updating lesson spaces:', error);
+              });
+          })
+          .catch(error => {
+            // Handle errors during the POST request
+            console.error('Error saving the order:', error);
+            this.checkoutMessage = 'Error during checkout. Please try again.';
+          });
       }
-
-
     },
+
+
 
 
 
