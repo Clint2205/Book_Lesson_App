@@ -26,13 +26,17 @@ const app = Vue.createApp({
   },
   //fetch promise to call data from express middleware
   created: function () {
-    fetch("http://localhost:3000/collections/products").then((res) => {
+    fetch("http://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/products").then((res) => {
       res.json().then((json) => {
         this.lessons = json;
       });
     });
   },
   methods: {
+
+   
+   
+  
 
     //method to insert lesson into cart
     bookLesson(lesson) {
@@ -133,7 +137,7 @@ const app = Vue.createApp({
                
 
         // POST request to save the new order
-        fetch('http://localhost:3000/collections/orders', {
+        fetch('http://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/orders', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -162,7 +166,8 @@ const app = Vue.createApp({
               this.checkoutMessage = '';
             }, 5000);
      // Fetch to Update lesson spaces after order is submitted
-            fetch('http://localhost:3000/collections/products', {
+            fetch('http://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/products', {
+              
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',
@@ -189,13 +194,17 @@ const app = Vue.createApp({
           });
       }
     },
-
-
-
-
+    
+  
+  
+   
 
   },
   computed: {
+
+    
+
+    
     //  property that returns the sorted lessons
     sortedLessons() {
       return this.lessons;
@@ -233,6 +242,10 @@ const app = Vue.createApp({
         // this.lessonView = false;
       }
     },
+
+  
+  
+
 
 
   },
