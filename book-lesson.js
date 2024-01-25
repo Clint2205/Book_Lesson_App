@@ -26,7 +26,7 @@ const app = Vue.createApp({
   },
   //fetch promise to call data from express middleware
   created: function () {
-    fetch("http://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/products").then((res) => {
+    fetch("https://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/products").then((res) => {
       res.json().then((json) => {
         this.lessons = json;
       });
@@ -137,7 +137,7 @@ const app = Vue.createApp({
                
 
         // POST request to save the new order
-        fetch('http://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/orders', {
+        fetch('https://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/orders', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ const app = Vue.createApp({
               this.checkoutMessage = '';
             }, 5000);
      // Fetch to Update lesson spaces after order is submitted
-            fetch('http://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/products', {
+            fetch('https://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/products', {
               
               method: 'PUT',
               headers: {
