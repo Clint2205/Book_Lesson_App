@@ -128,6 +128,8 @@ const app = Vue.createApp({
           userNumber: this.userNumber,
           cart: this.cart,
           lessonIDs: lessonIDs,
+          spaces: spaces[0] 
+          
         };
         const orderData2 = {
           lessonIDs: lessonIDs,
