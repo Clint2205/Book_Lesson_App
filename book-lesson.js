@@ -194,6 +194,33 @@ const app = Vue.createApp({
           });
       }
     },
+    searchFunction() {
+      const searchText = this.searchText.toLowerCase().trim();
+    
+
+console.log(searchText)
+      if (searchText === '') {
+          this.searchedItems = [];
+          this.searchActive = false;
+      } else {
+        fetch("https://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/search/collections/products/" + searchText)
+
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+                  return response.json();
+              })
+              .then(data => {
+                  this.searchedItems = data;
+                  this.searchActive = true;
+              })
+              .catch(error => {
+                  console.error('Error during search:', error);
+                
+              });
+      }
+  },
     
   
   
@@ -224,24 +251,24 @@ const app = Vue.createApp({
     isBackToLessonsView() {
       return this.lessonView && this.toggleButtonText === 'Back to Lessons';
     },
-    searchFunction() {
-      const searchText = this.searchText.toLowerCase().trim();
-      if (searchText === '') {
-        this.searchedItems = [];
-        this.searchActive = false;
-      } else {
-        let searched = this.lessons.filter((item) => {
-          return (
-            item.subject.toLowerCase().includes(searchText) ||
-            item.location.toLowerCase().includes(searchText)
-          );
-        });
+    // searchFunction() {
+    //   const searchText = this.searchText.toLowerCase().trim();
+    //   if (searchText === '') {
+    //     this.searchedItems = [];
+    //     this.searchActive = false;
+    //   } else {
+    //     let searched = this.lessons.filter((item) => {
+    //       return (
+    //         item.subject.toLowerCase().includes(searchText) ||
+    //         item.location.toLowerCase().includes(searchText)
+    //       );
+    //     });
 
-        this.searchedItems = searched;
-        this.searchActive = true;
-        // this.lessonView = false;
-      }
-    },
+    //     this.searchedItems = searched;
+    //     this.searchActive = true;
+    //     // this.lessonView = false;
+    //   }
+    // },
 
   
   
