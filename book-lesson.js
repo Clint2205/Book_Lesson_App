@@ -34,9 +34,9 @@ const app = Vue.createApp({
   },
   methods: {
 
-   
-   
-  
+
+
+
 
     //method to insert lesson into cart
     bookLesson(lesson) {
@@ -129,12 +129,12 @@ const app = Vue.createApp({
           cart: this.cart,
           lessonIDs: lessonIDs,
         };
-        const orderData2 ={
+        const orderData2 = {
           lessonIDs: lessonIDs,
           spaces: spaces,
 
         };
-               
+
 
         // POST request to save the new order
         fetch('https://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/orders', {
@@ -153,6 +153,9 @@ const app = Vue.createApp({
           .then(data => {
             // Handle the successful response from the server
             console.log('Order saved successfully:', data);
+            this.checkoutMessage = `Congratulations Checkout Successfull, Name: ${this.userName} , Number: ${this.userNumber}`;
+
+
 
             // Clear the cart and reset other data
             this.cart = [];
@@ -160,14 +163,14 @@ const app = Vue.createApp({
             this.userName = '';
             this.userNumber = '';
             this.isUserInfo = false;
-            this.checkoutMessage = "Congratulations Checkout Successfull";
+            
 
             setTimeout(() => {
               this.checkoutMessage = '';
             }, 5000);
-     // Fetch to Update lesson spaces after order is submitted
+            //PUT to Update lesson spaces after order is submitted
             fetch('https://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/products', {
-              
+
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',
@@ -194,44 +197,46 @@ const app = Vue.createApp({
           });
       }
     },
+    // Function to handle search functionality
     searchFunction() {
       const searchText = this.searchText.toLowerCase().trim();
-    
 
-console.log(searchText)
+
+      console.log(searchText)
       if (searchText === '') {
-          this.searchedItems = [];
-          this.searchActive = false;
+        this.searchedItems = [];
+        this.searchActive = false;
       } else {
+        //Initiating a fetch request for search results
         fetch("https://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/search/collections/products/" + searchText)
 
-              .then(response => {
-                  if (!response.ok) {
-                      throw new Error(`HTTP error! Status: ${response.status}`);
-                  }
-                  return response.json();
-              })
-              .then(data => {
-                  this.searchedItems = data;
-                  this.searchActive = true;
-              })
-              .catch(error => {
-                  console.error('Error during search:', error);
-                
-              });
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            this.searchedItems = data;
+            this.searchActive = true;
+          })
+          .catch(error => {
+            console.error('Error during search:', error);
+
+          });
       }
-  },
-    
-  
-  
-   
+    },
+
+
+
+
 
   },
   computed: {
 
-    
 
-    
+
+
     //  property that returns the sorted lessons
     sortedLessons() {
       return this.lessons;
@@ -240,7 +245,7 @@ console.log(searchText)
       return /^[0-9]*$/.test(this.userNumber);
     },
     userNameIsValid() {
-      return /^[A-Za-z]+$/.test(this.userName);
+      return /^[A-Za-z ]+$/.test(this.userName);
 
     },
 
@@ -251,28 +256,6 @@ console.log(searchText)
     isBackToLessonsView() {
       return this.lessonView && this.toggleButtonText === 'Back to Lessons';
     },
-    // searchFunction() {
-    //   const searchText = this.searchText.toLowerCase().trim();
-    //   if (searchText === '') {
-    //     this.searchedItems = [];
-    //     this.searchActive = false;
-    //   } else {
-    //     let searched = this.lessons.filter((item) => {
-    //       return (
-    //         item.subject.toLowerCase().includes(searchText) ||
-    //         item.location.toLowerCase().includes(searchText)
-    //       );
-    //     });
-
-    //     this.searchedItems = searched;
-    //     this.searchActive = true;
-    //     // this.lessonView = false;
-    //   }
-    // },
-
-  
-  
-
 
 
   },
