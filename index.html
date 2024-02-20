@@ -5,9 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>After-School Booking App</title>
+  <link rel="icon" type="image/x-icon"  href="images/favicon.ico">
+  <link rel="manifest" href="lesson_app.webmanifest">
+
+
   <script src="
 https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
 "></script>
+<!-- <script src="products.js"></script> -->
   <link rel="stylesheet" href="booklesson.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -76,6 +81,23 @@ https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
       <i class="fas fa-shopping-cart" v-show="lessonView && toggleButtonText === 'Checkout'"></i>
       {{ toggleButtonText === 'Checkout' ? toggleButtonText + ' (' + cartCount + ')' : toggleButtonText }}
     </button>
+
+     <!-- Test button -->
+  <button class="Test-button" v-if="!testActive" @click="activateTests">
+    Test
+  </button>
+
+  <!-- Test section -->
+  <div v-if="testActive" class="test-section">
+    <h2>Test Section</h2>
+    <!-- Test buttons -->
+    <button @click="reloadPage">Reload Page</button>
+    <button @click="deleteCaches">Delete Caches</button>
+
+    <!-- <button @click="testSaveToDatabase">Test Save to Database</button>  -->
+    <button @click="unregisterServiceWorkers">Unregister Service Workers</button>
+    <a href="https://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/products" @click="testHTTPSLink">Test HTTPS Link</a>
+  </div>
 
 
 

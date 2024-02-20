@@ -1,0 +1,19 @@
+{
+  "name": "lesson Booking App",
+  "short_name": "Lessonapp",
+  "icons": [
+    {
+      "src": "images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+  },
+  {
+      "src": "images/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+  }
+  ],
+  "start_url": "/School_Class_App/index.html",
+  "background_color": "#ffffff",
+  "display": "fullscreen"
+}

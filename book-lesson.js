@@ -22,10 +22,14 @@ const app = Vue.createApp({
       searchText: "",
       searchedItems: [],
       searchActive: false,
+      testActive: false,
     };
   },
   //fetch promise to call data from express middleware
   created: function () {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service_worker.js");
+      }
     fetch("https://lessonapp3-env.eba-mrkmnxsq.eu-west-2.elasticbeanstalk.com/collections/products").then((res) => {
       res.json().then((json) => {
         this.lessons = json;
@@ -227,6 +231,37 @@ const app = Vue.createApp({
 
           });
       }
+    },
+
+    activateTests() {
+      // Activate the test section
+      this.testActive = true;
+    },
+    reloadPage() {
+      // Reload the page
+      location.reload();
+    },
+    async deleteCaches() {
+      try {
+        // Delete all caches
+        const keys = await caches.keys();
+        await Promise.all(keys.map(key => caches.delete(key)));
+        alert("Caches deleted successfully.");
+      } catch (error) {
+        console.error("Error deleting caches:", error);
+        alert("Failed to delete caches.");
+      }
+    },
+    unregisterServiceWorkers() {
+      // Unregister all service workers
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        registrations.forEach(registration => registration.unregister());
+        alert("Service workers unregistered successfully.");
+      })
+      .catch(error => {
+        console.error("Error unregistering service workers:", error);
+        alert("Failed to unregister service workers.");
+      });
     },
 
 
